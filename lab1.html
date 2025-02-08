@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+    </head>
+
+    <style>
+    table, th, td {
+        border: 1px solid; 
+    }    
+    </style>
+
+    <body>
+        <h1>
+            Таблица умножения для числа 5
+        </h1>
+        <table id="docTable">
+            <thead>
+                <tr>
+                    <th>Операция</th>
+                    <th>Результат</th>
+                </tr>
+            </thead>
+            <tbody>
+
+            </tbody>            
+        </table>
+        <script>
+            var digit = 5;
+            var docElement = document.getElementById("docTable")
+                                     .getElementsByTagName("tbody")[0];
+
+            for(var i = 0; i <= 10; ++i){
+                var result = digit * i;
+                var newRow = docElement.insertRow();
+                var operationCell = newRow.insertCell();
+                var resultCell = newRow.insertCell();
+
+                var operationText = document.createTextNode(`${digit} * ${i}`);
+                var resultText = document.createTextNode(`${digit * i}`)
+
+                operationCell.appendChild(operationText);
+                resultCell.appendChild(resultText);
+            }
+        </script>
+    </body>
+</html>
