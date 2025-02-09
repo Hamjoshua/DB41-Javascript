@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+    </head>
+
+    <style>
+    .main-panel {
+        display: flex;
+    }
+    .tools-panel {
+        display: grid;
+        width: 30%;
+    }
+    #infoArea {
+        height: 300px;
+        width: 300px;
+    }
+    table, th, td {
+        border: 1px solid; 
+    }    
+    </style>
+
+    <body class="instrument-panel">
+        <div class="main-panel">
+            <div class="tools-panel">
+                <div>
+                    <input onchange="changeEducation()" type="checkbox" id="chb">
+                    <label for="chb">9\11 класс</label>
+                </div>
+                <button onclick="changeYear()">Поменять год рождения</button>
+                <button onclick="addYear()">Прибавить год</button>
+                <button onclick="showInfoOnArea()">Вывести информацию</button>
+            </div>
+            
+            <textarea readonly id="infoArea"></textarea>
+        </div>
+        
+        <script>            
+            const student = {
+                    lastName: "Ivanov",
+                    firstName: "Ivan",
+                    middleName: "Ivanovich",
+                    birthYear: 2010,
+                    is9Years: false,
+                    schoolClass: 5,
+                    favouriteSubjects: ["Mathematics", "Computer Science", "Physical Education"],
+                    
+                    registeredAddress: {
+                        country: "Russia",
+                        city: "Podolsk",
+                        street: "Volkova street",
+                        nubmerOfHouse: "13A",
+                        appartmentNumber: "305",
+                        showInfo() {
+                            return `${this.country}, ${this.city}, ${this.street}, ${this.nubmerOfHouse} ${this.appartmentNumber}`
+                        }
+                    },
+                    currentAddress: {
+                        country: "Russia",
+                        city: "Podolsk",
+                        street: "Volkova street",
+                        nubmerOfHouse: "13A",
+                        appartmentNumber: "305",
+                        showInfo() {
+                            return `${this.country}, ${this.city}, ${this.street}, ${this.nubmerOfHouse} ${this.appartmentNumber}`
+                        }
+                    },
+                    
+                    getInformation() {
+                        return `Данные о студенте:\n
+                        Фамилия: ${this.lastName}\n
+                        Имя: ${this.firstName}\n
+                        Отчество: ${this.middleName}\n
+                        Год рождения: ${this.birthYear}\n
+                        Класс: ${this.schoolClass}\n
+                        Срок обучения: ${this.is9Years ? "9 классов" : "11 классов"}\n
+                        Любимые предметы: ${this.favouriteSubjects}\n
+                        Прописка: ${this.registeredAddress.showInfo()}\n
+                        Место проживания: ${this.registeredAddress.showInfo()}`
+                    },
+
+                    addYear(){
+                        if((this.is9Years && this.schoolClass >= 9) ||
+                           (!this.is9Years && this.schoolClass >= 11)){
+                            alert("Максимальный класс достигнут");
+                        }
+                        else{
+                            this.schoolClass += 1;
+                            alert("Класс добавлен");
+                        }
+                    },
+
+                    changeYear(year) {
+                        if(year <= this.birthYear && year >= this.birthYear - 200){
+                            this.birthYear = year;
+                        }
+                    }
+                }
+
+                function addYear(){
+                    student.addYear();
+                    showInfoOnArea()
+                }
+
+                function changeYear(){
+                    student.changeYear(prompt(`Введите новый год рождения в пределе от
+                                                ${student.birthYear} до ${student.birthYear - 200}`))
+                    showInfoOnArea()
+                }
+
+                function showInfoOnArea(){
+                    var infoArea = document.getElementById("infoArea");
+                    infoArea.innerText = student.getInformation()
+                }
+
+                function changeEducation(){
+                    student.is9Years = !student.is9Years;
+                    showInfoOnArea();
+                }
+
+                showInfoOnArea()
+        </script>
+    </body>
+</html>

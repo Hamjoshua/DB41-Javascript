@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+    </head>
+
+    <style>
+      table, th, td {
+          border: 1px solid; 
+      }    
+    </style>
+
+    <body>
+        <h1>
+            Данные о направлении
+        </h1>
+        <table id="docTable">
+          <thead>
+            <tr>
+              <th>
+                Фамилия
+              </th>
+              <th>
+                Имя
+              </th>
+              <th>
+                Курс
+              </th>              
+            </tr>
+          </thead>
+          <tbody>
+
+          </tbody>
+        </table>
+        <script>
+  var studentsJson = {
+  "students": [
+    {
+      "lastName": "Иванов",
+      "firstName": "Иван",
+      "course": 1,
+      "directionCode": "09.03.01"
+    },
+    {
+      "lastName": "Петров",
+      "firstName": "Петр",
+      "course": 2,
+      "directionCode": "09.03.02"
+    },
+    {
+      "lastName": "Сидоров",
+      "firstName": "Сидор",
+      "course": 3,
+      "directionCode": "09.03.04"
+    },
+    {
+      "lastName": "Смирнов",
+      "firstName": "Алексей",
+      "course": 4,
+      "directionCode": "09.03.03"
+    },
+    {
+      "lastName": "Кузнецова",
+      "firstName": "Анна",
+      "course": 1,
+      "directionCode": "10.05.01"
+    },
+    {
+      "lastName": "Попова",
+      "firstName": "Елена",
+      "course": 2,
+      "directionCode": "13.03.02"
+    }
+    ]
+  };
+    // Получаем список существующих направлений
+
+    var directions = [];
+    studentsJson.students.forEach(student => {
+        if(!directions.includes(student.directionCode)){
+            directions.push(student.directionCode);
+        }
+    });
+    var direction = "";
+    while(!directions.includes(direction)){
+      direction = prompt(`Введите направление из предложенных: ${directions}`);
+    } 
+
+    var filteredStudents = studentsJson.students.filter((st) => st.directionCode == direction);
+
+    filteredStudents.forEach(element => {
+      var tbody = document.getElementById("docTable")
+                              .getElementsByTagName("tbody")[0];
+      var newRow = tbody.insertRow();
+
+      var nameCell = newRow.insertCell();
+      var lastNameCell = newRow.insertCell();
+      var courseCell = newRow.insertCell();
+      
+      
+      nameCell.appendChild(document.createTextNode(element.firstName))
+      lastNameCell.appendChild(document.createTextNode(element.lastName))
+      courseCell.appendChild(document.createTextNode(element.course))
+    });
+    
+
+</script>
+    </body>
+</html>
